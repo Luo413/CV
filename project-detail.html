@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Work 01 · NourishRing — Luo Jinglei</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-primary: #faf8fd;
+  --bg-white: #ffffff;
+  --text-primary: #1a1520;
+  --text-secondary: #4a3f55;
+  --text-muted: #8b7e98;
+  --accent-pink: #ef5da8;
+  --accent-purple: #8a76e1;
+  --accent-purple-light: #d9d5ff;
+  --gradient-text: linear-gradient(135deg, #ef5da8 0%, #8a76e1 100%);
+  --gradient-card: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(248,247,255,0.95) 100%);
+  --shadow: 0 4px 20px rgba(26,21,32,0.06);
+  --shadow-lg: 0 12px 40px rgba(26,21,32,0.08);
+  --radius: 16px;
+  --radius-lg: 24px;
+  --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  --font-display: 'Sora', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Back Nav */
+.top-bar {
+  position: sticky;
+  top: 0; z-index: 100;
+  background: rgba(250,248,253,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(138,118,225,0.08);
+  padding: 0 32px;
+}
+
+.top-bar-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+.back-link:hover { color: var(--accent-pink); }
+
+.back-link svg { transition: transform var(--transition); }
+.back-link:hover svg { transform: translateX(-3px); }
+
+/* Content */
+.page-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 56px 32px 80px;
+}
+
+/* Header */
+.detail-header {
+  margin-bottom: 40px;
+}
+
+.detail-num {
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.detail-name {
+  font-family: var(--font-display);
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.03em;
+  margin: 8px 0 16px;
+}
+
+.detail-tagline {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 640px;
+}
+
+/* Design Description Card */
+.desc-card {
+  background: var(--gradient-card);
+  border-radius: var(--radius-lg);
+  padding: 44px;
+  border: 1px solid rgba(138,118,225,0.12);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+  margin-bottom: 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+.desc-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--gradient-text);
+}
+
+.desc-card h4 {
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-purple);
+  margin-bottom: 18px;
+}
+
+.desc-card p {
+  font-size: 0.93rem;
+  color: var(--text-secondary);
+  line-height: 1.85;
+  margin-bottom: 14px;
+}
+
+.desc-card p:last-child { margin-bottom: 0; }
+
+/* Image Gallery */
+.gallery-title {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+
+.gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.gallery img {
+  width: 100%;
+  border-radius: var(--radius);
+  box-shadow: 0 2px 16px rgba(26,21,32,0.06);
+  background: #fff;
+  display: block;
+  transition: box-shadow var(--transition);
+}
+
+.gallery img:hover {
+  box-shadow: 0 8px 32px rgba(26,21,32,0.1);
+}
+
+/* Page indicator */
+.page-indicator {
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  padding: 4px 0 8px;
+}
+
+/* Footer */
+.page-footer {
+  text-align: center;
+  padding: 40px 32px 48px;
+  border-top: 1px solid rgba(138,118,225,0.08);
+  margin-top: 32px;
+}
+
+.page-footer p {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .page-content { padding: 32px 20px 60px; }
+  .detail-name { font-size: 1.8rem; }
+  .desc-card { padding: 28px; }
+  .top-bar { padding: 0 16px; }
+}
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="top-bar-inner">
+    <a href="index.html#projects" class="back-link">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      返回项目列表
+    </a>
+    <span style="font-family:var(--font-display);font-weight:600;font-size:0.85rem;color:var(--text-muted);">Project Work 01</span>
+  </div>
+</div>
+
+<div class="page-content">
+
+  <div class="detail-header">
+    <span class="detail-num">Project Work 01</span>
+    <h1 class="detail-name">NourishRing</h1>
+    <p class="detail-tagline">
+      通过定制化早餐与营养可视化设计，让快节奏人群能够"像搭积木一样"快速完成个性化、均衡且可持续的早餐摄入体验。
+    </p>
+  </div>
+
+  <div class="desc-card">
+    <h4>项目设计说明</h4>
+    <p>CustomBite™ NourishRing 是一款面向快节奏城市生活的模块化营养早餐系统，通过"可拼装营养环"与数字化营养管理 App 相结合，解决现代人早餐中"时间不足、营养失衡、缺乏个性化"的问题。项目以"营养可视化"为核心设计理念，将不同营养类别转化为不同颜色与形态的食品模块，使用户能够像拼装积木一样快速组合早餐，并直观感知营养结构。</p>
+    <p>产品采用"环 + 中心棒"的结构设计，不同颜色的营养环分别对应蛋白质、维生素、脂肪与碳水化合物等营养类别，用户可依据自身健康目标自由组合，实现便携、快速、可定制的早餐体验。同时，配套 App 会根据用户年龄、体重、健康目标等数据生成个性化营养方案，并提供营养追踪、早餐推荐与可视化反馈，帮助用户建立长期健康饮食习惯。</p>
+    <p>项目还关注环保与可持续性，采用可食用海藻酸钠内包装，减少一次性包装浪费，使"便利性"与"环保性"同时成立。</p>
+  </div>
+
+  <p class="gallery-title">项目展示页 — 共 85 页</p>
+
+  <div class="gallery" id="gallery"></div>
+
+</div>
+
+<footer class="page-footer">
+  <p>&copy; 2025 Luo Jinglei · Xi'an Jiaotong University · Industrial Design</p>
+</footer>
+
+<script>
+// Lazy-load images
+const gallery = document.getElementById('gallery');
+const totalPages = 85;
+
+function buildGallery() {
+  let html = '';
+  for (let i = 1; i <= totalPages; i++) {
+    const pageNum = String(i).padStart(2, '0');
+    html += '<img src="pw1-images/p' + pageNum + '.jpg" alt="Page ' + i + '" loading="lazy">';
+  }
+  gallery.innerHTML = html;
+}
+
+buildGallery();
+</script>
+
+</body>
+</html>

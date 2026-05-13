@@ -1,0 +1,2070 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>罗静蕾 · Luo Jinglei — HCI / Neurodesign Researcher</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+/* ===== CSS Variables ===== */
+:root {
+  --bg-primary: #faf8fd;
+  --bg-secondary: #f5f1fb;
+  --bg-white: #ffffff;
+  --text-primary: #1a1520;
+  --text-secondary: #4a3f55;
+  --text-muted: #8b7e98;
+  --accent-pink: #ef5da8;
+  --accent-pink-light: #fde4f4;
+  --accent-purple: #8a76e1;
+  --accent-purple-light: #d9d5ff;
+  --accent-purple-dark: #3b3361;
+  --accent-lavender: #c9bfff;
+  --accent-blue: #2895f7;
+  --neutral-100: #f8f7ff;
+  --neutral-200: #eaeef1;
+  --neutral-800: #212224;
+  --gradient-hero: linear-gradient(135deg, #faf8fd 0%, #f5f1fb 30%, #fde4f4 60%, #f8f7ff 100%);
+  --gradient-card: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(248,247,255,0.95) 100%);
+  --gradient-pink: linear-gradient(135deg, #ef5da8 0%, #f178b6 50%, #f19fd3 100%);
+  --gradient-purple: linear-gradient(135deg, #8a76e1 0%, #9b88f5 50%, #b4a3fe 100%);
+  --gradient-text: linear-gradient(135deg, #ef5da8 0%, #8a76e1 100%);
+  --font-display: 'Sora', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --radius-sm: 8px;
+  --radius: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --shadow-sm: 0 1px 3px rgba(26,21,32,0.04);
+  --shadow: 0 4px 20px rgba(26,21,32,0.06), 0 1px 3px rgba(26,21,32,0.04);
+  --shadow-lg: 0 12px 40px rgba(26,21,32,0.08), 0 4px 12px rgba(26,21,32,0.04);
+  --shadow-xl: 0 24px 64px rgba(26,21,32,0.12), 0 8px 24px rgba(26,21,32,0.06);
+  --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  --max-width: 1200px;
+  --nav-height: 72px;
+}
+
+/* ===== Reset ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--nav-height);
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* ===== Gradient Blur Orbs Background ===== */
+.bg-orbs {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.bg-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.4;
+  animation: orbFloat 20s ease-in-out infinite;
+}
+
+.bg-orb--1 {
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, #d9d5ff 0%, transparent 70%);
+  top: -15%; left: -10%;
+  animation-delay: 0s;
+}
+
+.bg-orb--2 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, #fde4f4 0%, transparent 70%);
+  top: 40%; right: -10%;
+  animation-delay: -7s;
+}
+
+.bg-orb--3 {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, #c9bfff 0%, transparent 70%);
+  bottom: 10%; left: 30%;
+  animation-delay: -14s;
+}
+
+.bg-orb--4 {
+  width: 350px; height: 350px;
+  background: radial-gradient(circle, #f19fd3 0%, transparent 70%);
+  top: 60%; left: -8%;
+  animation-delay: -3s;
+}
+
+@keyframes orbFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(40px, -30px) scale(1.08); }
+  50% { transform: translate(-20px, 20px) scale(0.94); }
+  75% { transform: translate(30px, 10px) scale(1.04); }
+}
+
+/* ===== Neural Particle Canvas ===== */
+#particle-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ===== Navbar ===== */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--nav-height);
+  z-index: 100;
+  transition: background 0.4s, box-shadow 0.4s, backdrop-filter 0.4s;
+}
+
+.nav.scrolled {
+  background: rgba(250,248,253,0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 1px 0 rgba(26,21,32,0.06);
+}
+
+.nav-inner {
+  width: 100%;
+  max-width: var(--max-width);
+  padding: 0 40px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.nav-logo {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+
+.nav-logo-dot {
+  display: inline-block;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--accent-pink);
+  margin-left: 2px;
+  animation: dotPulse 2s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.5); }
+}
+
+.nav-links {
+  display: flex;
+  gap: 36px;
+  list-style: none;
+  align-items: center;
+}
+
+.nav-links a {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color var(--transition);
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -6px; left: 0; right: 0;
+  height: 2px;
+  background: var(--gradient-text);
+  border-radius: 2px;
+  transform: scaleX(0);
+  transition: transform var(--transition);
+}
+
+.nav-links a:hover,
+.nav-links a.active { color: var(--text-primary); }
+
+.nav-links a:hover::after,
+.nav-links a.active::after { transform: scaleX(1); }
+
+.nav-cta {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 100px;
+  background: var(--neutral-800);
+  color: #fff;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: background var(--transition), transform var(--transition);
+}
+
+.nav-cta:hover {
+  background: var(--accent-pink);
+  transform: translateY(-1px);
+}
+
+.mobile-menu-btn {
+  display: none;
+  flex-direction: column; gap: 5px;
+  background: none; border: none;
+  cursor: pointer; padding: 4px;
+  z-index: 101;
+}
+
+.mobile-menu-btn span {
+  width: 24px; height: 2px;
+  background: var(--text-primary);
+  border-radius: 1px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+/* ===== Mobile Nav ===== */
+.mobile-nav {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(250,248,253,0.96);
+  backdrop-filter: blur(24px);
+  z-index: 99;
+  flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 36px;
+}
+
+.mobile-nav.open { display: flex; }
+
+.mobile-nav a {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+/* ===== Section Base ===== */
+.section {
+  position: relative; z-index: 1;
+  padding: 120px 40px;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.section-label {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 16px;
+  display: inline-block;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 3rem;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+  line-height: 1.15;
+}
+
+.section-title .gradient-text {
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.section-desc {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  line-height: 1.7;
+}
+
+/* ===== Section Dividers (SVG Waves) ===== */
+.section-divider {
+  position: absolute;
+  left: 0; right: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.section-divider--top { top: -1px; }
+.section-divider--bottom { bottom: -1px; }
+
+.section-divider svg {
+  width: 100%;
+  display: block;
+}
+
+/* ===== Hero Section ===== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 140px 40px 100px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.hero-badge-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--accent-pink);
+  animation: dotPulse 2s ease-in-out infinite;
+}
+
+.hero-name-cn {
+  font-family: var(--font-display);
+  font-size: 4.2rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: var(--text-primary);
+  line-height: 1.05;
+}
+
+.hero-name-en {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 400;
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-line {
+  width: 60px; height: 3px;
+  border-radius: 2px;
+  background: var(--gradient-text);
+}
+
+.hero-affiliation {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 440px;
+}
+
+.hero-keywords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.hero-keyword {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 8px 18px;
+  border-radius: 100px;
+  border: 1px solid rgba(138,118,225,0.2);
+  background: rgba(138,118,225,0.05);
+  color: var(--accent-purple);
+  letter-spacing: 0.02em;
+  transition: all var(--transition);
+}
+
+.hero-keyword:hover {
+  background: var(--accent-purple);
+  color: #fff;
+  border-color: var(--accent-purple);
+  transform: translateY(-2px);
+}
+
+.hero-keyword.pink {
+  border-color: rgba(239,93,168,0.2);
+  background: rgba(239,93,168,0.05);
+  color: var(--accent-pink);
+}
+
+.hero-keyword.pink:hover {
+  background: var(--accent-pink);
+  color: #fff;
+  border-color: var(--accent-pink);
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.btn-primary {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 14px 32px;
+  border-radius: 100px;
+  border: none;
+  background: var(--neutral-800);
+  color: #fff;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+
+.btn-primary:hover {
+  background: var(--accent-pink);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(239,93,168,0.3);
+}
+
+.btn-secondary {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 14px 32px;
+  border-radius: 100px;
+  border: 1.5px solid var(--accent-purple-light);
+  background: transparent;
+  color: var(--accent-purple);
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: all var(--transition);
+}
+
+.btn-secondary:hover {
+  background: var(--accent-purple);
+  color: #fff;
+  border-color: var(--accent-purple);
+  transform: translateY(-2px);
+}
+
+/* Hero Photo */
+.hero-photo-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-photo-bg-blur {
+  position: absolute;
+  width: 350px; height: 350px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(217,213,255,0.5) 0%, rgba(253,228,244,0.3) 50%, transparent 70%);
+  filter: blur(60px);
+  animation: orbFloat 8s ease-in-out infinite;
+}
+
+.hero-photo {
+  width: 300px; height: 370px;
+  border-radius: var(--radius-xl);
+  background: var(--gradient-card);
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+  box-shadow: var(--shadow-xl);
+  border: 1px solid rgba(138,118,225,0.15);
+  overflow: hidden;
+  z-index: 1;
+}
+
+.hero-photo::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(138,118,225,0.06) 0%, rgba(239,93,168,0.06) 100%);
+  border-radius: var(--radius-xl);
+}
+
+.hero-photo-initials {
+  font-family: var(--font-display);
+  font-size: 5rem;
+  font-weight: 700;
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-floating-element {
+  position: absolute;
+  z-index: 0;
+  animation: gentleFloat 6s ease-in-out infinite;
+}
+
+.hero-floating-element--1 {
+  top: 10%; right: -20px;
+  width: 60px; height: 60px;
+  background: rgba(138,118,225,0.1);
+  border-radius: var(--radius);
+  animation-delay: 0s;
+}
+
+.hero-floating-element--2 {
+  bottom: 20%; left: -30px;
+  width: 80px; height: 80px;
+  background: rgba(239,93,168,0.08);
+  border-radius: 50%;
+  animation-delay: -3s;
+}
+
+@keyframes gentleFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+/* ===== About Section ===== */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  margin-top: 56px;
+}
+
+.about-card {
+  background: var(--gradient-card);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  border: 1px solid rgba(138,118,225,0.1);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.about-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--gradient-text);
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.about-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(138,118,225,0.2);
+}
+
+.about-card:hover::before { opacity: 1; }
+
+.about-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+}
+
+.about-card .about-text {
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  line-height: 1.75;
+}
+
+.about-card .interest-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.interest-tag {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 100px;
+  background: rgba(138,118,225,0.06);
+  color: var(--accent-purple);
+  border: 1px solid rgba(138,118,225,0.12);
+  letter-spacing: 0.01em;
+  transition: all var(--transition);
+}
+
+.interest-tag:hover {
+  background: var(--accent-purple);
+  color: #fff;
+  border-color: var(--accent-purple);
+}
+
+.interest-tag.pink {
+  background: rgba(239,93,168,0.06);
+  color: var(--accent-pink);
+  border-color: rgba(239,93,168,0.12);
+}
+
+.interest-tag.pink:hover {
+  background: var(--accent-pink);
+  color: #fff;
+  border-color: var(--accent-pink);
+}
+
+.about-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.about-pill {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 500;
+  padding: 7px 16px;
+  border-radius: 100px;
+  background: var(--bg-primary);
+  border: 1px solid rgba(138,118,225,0.1);
+  color: var(--text-secondary);
+  transition: all var(--transition);
+}
+
+.about-pill:hover {
+  border-color: var(--accent-purple-light);
+  color: var(--accent-purple);
+  background: rgba(138,118,225,0.04);
+}
+
+/* ===== Research Section ===== */
+#research {
+  background: linear-gradient(180deg, transparent 0%, rgba(138,118,225,0.02) 30%, rgba(239,93,168,0.02) 70%, transparent 100%);
+  padding-top: 120px;
+  padding-bottom: 120px;
+  max-width: 100%;
+}
+
+#research .section-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* Experimental Timeline */
+.timeline-wrapper {
+  margin-top: 56px;
+  position: relative;
+}
+
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  position: relative;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 20px; left: 15%; right: 15%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-purple-light), var(--accent-pink), var(--accent-purple-light));
+  border-radius: 1px;
+  z-index: 0;
+}
+
+.timeline-node {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding-top: 48px;
+}
+
+.timeline-node::before {
+  content: '';
+  position: absolute;
+  top: 14px; left: 50%;
+  transform: translateX(-50%);
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid var(--accent-purple);
+  box-shadow: 0 0 0 6px rgba(138,118,225,0.12);
+}
+
+.timeline-node:nth-child(2)::before { border-color: var(--accent-pink); box-shadow: 0 0 0 6px rgba(239,93,168,0.12); }
+
+.timeline-node-date {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-purple);
+  margin-bottom: 10px;
+}
+
+.timeline-node:nth-child(2) .timeline-node-date { color: var(--accent-pink); }
+
+.timeline-node h4 {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.timeline-node p {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  max-width: 280px;
+  margin: 0 auto;
+}
+
+/* Research Paper Card */
+.research-paper {
+  background: var(--gradient-card);
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(138,118,225,0.12);
+  padding: 52px;
+  margin-top: 64px;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+
+.research-paper::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: var(--gradient-text);
+}
+
+.research-paper-corner {
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(217,213,255,0.3) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.research-paper-title {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.4;
+  margin-bottom: 14px;
+  letter-spacing: -0.02em;
+  position: relative;
+  z-index: 1;
+}
+
+.research-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 28px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  position: relative;
+  z-index: 1;
+}
+
+.research-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.research-meta-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--accent-pink);
+}
+
+.research-abstract {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.85;
+  margin-bottom: 32px;
+  position: relative;
+  z-index: 1;
+}
+
+.research-keywords-display {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 1;
+}
+
+.research-kw {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 6px 15px;
+  border-radius: 100px;
+  background: rgba(239,93,168,0.06);
+  color: var(--accent-pink);
+  border: 1px solid rgba(239,93,168,0.12);
+  letter-spacing: 0.02em;
+}
+
+.research-kw.purple {
+  background: rgba(138,118,225,0.06);
+  color: var(--accent-purple);
+  border-color: rgba(138,118,225,0.12);
+}
+
+/* Research Visual Cards */
+.research-visuals {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.research-vcard {
+  background: var(--bg-primary);
+  border-radius: var(--radius);
+  padding: 32px 28px;
+  border: 1px solid rgba(138,118,225,0.08);
+  text-align: center;
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.research-vcard:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(138,118,225,0.2);
+}
+
+.research-vcard::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 20%; right: 20%;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--gradient-text);
+  transform: scaleX(0);
+  transition: transform var(--transition);
+}
+
+.research-vcard:hover::after { transform: scaleX(1); }
+
+.research-vcard-icon {
+  font-size: 2.6rem;
+  margin-bottom: 16px;
+}
+
+.research-vcard h4 {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+
+.research-vcard p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* ===== Projects Section ===== */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 56px;
+}
+
+a.project-card-link {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+a.project-card-link::after {
+  content: '↗';
+  position: absolute;
+  top: 28px; right: 32px;
+  font-size: 1.1rem;
+  color: var(--accent-purple-light);
+  transition: transform var(--transition), color var(--transition);
+}
+
+a.project-card-link:hover::after {
+  transform: translate(4px, -4px);
+  color: var(--accent-pink);
+}
+
+.project-card {
+  background: var(--gradient-card);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  border: 1px solid rgba(138,118,225,0.1);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-xl);
+  border-color: rgba(138,118,225,0.2);
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 180px; height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(138,118,225,0.08) 0%, transparent 70%);
+  transition: opacity var(--transition);
+  opacity: 0;
+}
+
+.project-card:hover::before { opacity: 1; }
+
+.project-status {
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 14px;
+  display: inline-block;
+}
+
+.project-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+}
+
+.project-card p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.project-domain {
+  display: inline-block;
+  margin-top: 20px;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 5px 13px;
+  border-radius: 100px;
+  background: rgba(138,118,225,0.06);
+  color: var(--accent-purple);
+  border: 1px solid rgba(138,118,225,0.12);
+}
+
+/* ===== Project Detail Block ===== */
+.project-detail-block {
+  background: var(--gradient-card);
+  border-radius: var(--radius-xl);
+  padding: 48px;
+  margin-top: 48px;
+  margin-bottom: 48px;
+  border: 1px solid rgba(138,118,225,0.12);
+  box-shadow: var(--shadow-lg);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.project-detail-block::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: var(--gradient-text);
+}
+
+.project-detail-header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.project-detail-num {
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.project-detail-name {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.03em;
+}
+
+.project-detail-tagline {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 720px;
+  margin-bottom: 28px;
+}
+
+.project-detail-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(138,118,225,0.15), rgba(239,93,168,0.1), transparent);
+  margin-bottom: 28px;
+}
+
+.project-detail-body h4 {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent-purple);
+  margin-bottom: 16px;
+}
+
+.project-detail-body p {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.85;
+  margin-bottom: 14px;
+}
+
+.project-detail-body p:last-child { margin-bottom: 0; }
+
+.project-pdf-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 28px;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--neutral-800);
+  padding: 12px 26px;
+  border-radius: 100px;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: all var(--transition);
+}
+
+.project-pdf-link:hover {
+  background: var(--accent-pink);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(239,93,168,0.3);
+}
+
+/* ===== Awards Section ===== */
+.awards-category {
+  margin-top: 56px;
+}
+
+.awards-category:first-child { margin-top: 40px; }
+
+.awards-category-title {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 20px;
+  display: inline-block;
+}
+
+.awards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.award-item {
+  background: var(--gradient-card);
+  border-radius: var(--radius);
+  padding: 28px 36px;
+  border: 1px solid rgba(138,118,225,0.08);
+  box-shadow: var(--shadow-sm);
+  display: grid;
+  grid-template-columns: 120px 1fr auto;
+  gap: 24px;
+  align-items: center;
+  backdrop-filter: blur(10px);
+  transition: all var(--transition);
+}
+
+.award-item:hover {
+  transform: translateX(6px);
+  box-shadow: var(--shadow);
+  border-color: rgba(138,118,225,0.2);
+}
+
+.award-year {
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  font-weight: 800;
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.award-info h4 {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.award-info p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.award-level {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 7px 16px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+
+.award-level.international {
+  background: rgba(239,93,168,0.1);
+  color: #c0396b;
+  border: 1px solid rgba(239,93,168,0.2);
+}
+
+.award-level.national {
+  background: rgba(239,93,168,0.06);
+  color: var(--accent-pink);
+  border: 1px solid rgba(239,93,168,0.12);
+}
+
+.award-level.provincial {
+  background: rgba(138,118,225,0.08);
+  color: var(--accent-purple);
+  border: 1px solid rgba(138,118,225,0.15);
+}
+
+.award-level.university {
+  background: rgba(138,118,225,0.05);
+  color: #6b5e8a;
+  border: 1px solid rgba(138,118,225,0.1);
+}
+
+.award-level.college {
+  background: rgba(40,149,247,0.05);
+  color: var(--accent-blue);
+  border: 1px solid rgba(40,149,247,0.1);
+}
+
+/* ===== Contact Section ===== */
+#contact {
+  background: linear-gradient(180deg, transparent 0%, rgba(138,118,225,0.03) 50%, transparent 100%);
+  padding-top: 120px;
+  padding-bottom: 120px;
+  max-width: 100%;
+}
+
+#contact .section-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 64px;
+  margin-top: 56px;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contact-card {
+  background: var(--gradient-card);
+  border-radius: var(--radius);
+  padding: 24px;
+  border: 1px solid rgba(138,118,225,0.08);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  backdrop-filter: blur(10px);
+  transition: all var(--transition);
+}
+
+.contact-card:hover {
+  border-color: rgba(138,118,225,0.2);
+  box-shadow: var(--shadow);
+}
+
+.contact-icon-box {
+  width: 48px; height: 48px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+
+.contact-icon-box.purple { background: rgba(138,118,225,0.08); }
+.contact-icon-box.pink { background: rgba(239,93,168,0.08); }
+
+.contact-card-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.contact-card-value {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+/* ===== WeChat Card ===== */
+.wechat-card {
+  background: var(--gradient-card);
+  border-radius: var(--radius-xl);
+  padding: 48px;
+  border: 1px solid rgba(138,118,225,0.12);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.wechat-card-glow {
+  position: absolute;
+  inset: -60px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(239,93,168,0.06) 0%, rgba(138,118,225,0.04) 40%, transparent 70%);
+  pointer-events: none;
+  animation: orbFloat 10s ease-in-out infinite;
+}
+
+.wechat-card-title {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+  position: relative;
+  z-index: 1;
+}
+
+.wechat-card-desc {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-bottom: 32px;
+  position: relative;
+  z-index: 1;
+}
+
+.wechat-qr-wrapper {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wechat-qr-img {
+  width: 220px;
+  height: 220px;
+  border-radius: var(--radius);
+  object-fit: cover;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 8px 40px rgba(138,118,225,0.15);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.wechat-qr-img:hover {
+  transform: scale(1.04);
+  box-shadow: 0 12px 56px rgba(138,118,225,0.25);
+}
+
+.wechat-qr-ring {
+  position: absolute;
+  inset: -12px;
+  border-radius: 20px;
+  border: 1.5px solid rgba(138,118,225,0.15);
+  z-index: 1;
+  animation: ringPulse 3s ease-in-out infinite;
+}
+
+@keyframes ringPulse {
+  0%, 100% { border-color: rgba(138,118,225,0.12); }
+  50% { border-color: rgba(239,93,168,0.25); }
+}
+
+/* ===== Footer ===== */
+.footer {
+  position: relative; z-index: 1;
+  text-align: center;
+  padding: 48px 40px;
+  border-top: 1px solid rgba(138,118,225,0.08);
+}
+
+.footer p {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+}
+
+.footer .footer-gradient {
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
+}
+
+/* ===== Scroll Reveal ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+.reveal-delay-1 { transition-delay: 0.08s; }
+.reveal-delay-2 { transition-delay: 0.16s; }
+.reveal-delay-3 { transition-delay: 0.24s; }
+.reveal-delay-4 { transition-delay: 0.32s; }
+
+/* ===== Responsive ===== */
+@media (max-width: 1024px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 60px; }
+  .hero-name-cn { font-size: 3rem; }
+  .section-title { font-size: 2.2rem; }
+  .timeline { grid-template-columns: 1fr; gap: 16px; }
+  .timeline::before { display: none; }
+  .timeline-node { padding-top: 0; text-align: left; }
+  .timeline-node::before { display: none; }
+  .timeline-node p { max-width: 100%; }
+  .research-visuals { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .about-grid { grid-template-columns: 1fr; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .section { padding: 80px 28px; }
+  #research, #contact { padding-left: 0; padding-right: 0; }
+  #research .section-inner, #contact .section-inner { padding: 0 28px; }
+  .research-paper { padding: 32px; }
+  .project-detail-block { padding: 28px; }
+  .project-detail-name { font-size: 1.4rem; }
+}
+
+@media (max-width: 768px) {
+  .nav-links, .nav-cta { display: none; }
+  .mobile-menu-btn { display: flex; }
+  .hero { padding: 120px 20px 72px; }
+  .hero-inner { gap: 40px; }
+  .hero-name-cn { font-size: 2.4rem; }
+  .hero-name-en { font-size: 1.2rem; }
+  .hero-photo-bg-blur { width: 240px; height: 240px; }
+  .hero-photo { width: 220px; height: 280px; }
+  .hero-photo-initials { font-size: 3.5rem; }
+  .section-title { font-size: 1.8rem; }
+  .section { padding: 60px 20px; }
+  #research .section-inner, #contact .section-inner { padding: 0 20px; }
+  .research-paper-title { font-size: 1.2rem; }
+  .award-item { grid-template-columns: 1fr; gap: 8px; padding: 20px 24px; }
+  .wechat-card { padding: 32px; }
+}
+
+@media (max-width: 480px) {
+  .hero-name-cn { font-size: 2rem; }
+  .hero-actions { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<!-- Gradient Blur Orbs -->
+<div class="bg-orbs">
+  <div class="bg-orb bg-orb--1"></div>
+  <div class="bg-orb bg-orb--2"></div>
+  <div class="bg-orb bg-orb--3"></div>
+  <div class="bg-orb bg-orb--4"></div>
+</div>
+
+<!-- Particle Canvas -->
+<canvas id="particle-canvas"></canvas>
+
+<!-- Navigation -->
+<nav class="nav" id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Luo<span class="nav-logo-dot"></span></a>
+    <ul class="nav-links">
+      <li><a href="#about" class="nav-link">About</a></li>
+      <li><a href="#research" class="nav-link">Research</a></li>
+      <li><a href="#projects" class="nav-link">Projects</a></li>
+      <li><a href="#awards" class="nav-link">Awards</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Get in Touch</a>
+    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#about" onclick="closeMobileNav()">About</a>
+  <a href="#research" onclick="closeMobileNav()">Research</a>
+  <a href="#projects" onclick="closeMobileNav()">Projects</a>
+  <a href="#awards" onclick="closeMobileNav()">Awards</a>
+  <a href="#contact" onclick="closeMobileNav()">Contact</a>
+</div>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div class="hero-content reveal">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        Xi'an Jiaotong University · Industrial Design
+      </div>
+      <h1 class="hero-name-cn">罗静蕾</h1>
+      <p class="hero-name-en">Luo Jinglei</p>
+      <div class="hero-line"></div>
+      <p class="hero-affiliation">
+        HCI / Neurodesign Researcher — 探索人机交互、脑电分析与神经设计的交叉前沿，致力于构建科学与设计之间的桥梁。
+      </p>
+      <div class="hero-keywords">
+        <span class="hero-keyword">HCI</span>
+        <span class="hero-keyword pink">EEG</span>
+        <span class="hero-keyword">Neurodesign</span>
+        <span class="hero-keyword pink">BCI</span>
+        <span class="hero-keyword">Fear Extinction</span>
+        <span class="hero-keyword pink">Neural Oscillations</span>
+      </div>
+      <div class="hero-actions">
+        <a href="#research" class="btn-primary">View Research</a>
+        <a href="#contact" class="btn-secondary">Contact</a>
+      </div>
+    </div>
+    <div class="hero-photo-wrapper reveal reveal-delay-2">
+      <div class="hero-photo-bg-blur"></div>
+      <div class="hero-floating-element hero-floating-element--1"></div>
+      <div class="hero-floating-element hero-floating-element--2"></div>
+      <div class="hero-photo">
+        <span class="hero-photo-initials">LJ</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section class="section" id="about">
+  <p class="section-label reveal">About</p>
+  <h2 class="section-title reveal reveal-delay-1">
+    跨学科<span class="gradient-text">研究者</span>
+  </h2>
+  <p class="section-desc reveal reveal-delay-1">
+    西安交通大学工业设计专业学生，聚焦于 HCI（人机交互）、神经设计（Neurodesign）与脑电分析（EEG Analysis）交叉领域。致力于通过实验研究与系统原型开发，探索人类认知与交互技术的深度融合。
+  </p>
+
+  <div class="about-grid">
+    <div class="about-card reveal reveal-delay-2">
+      <h3>研究方向</h3>
+      <p class="about-text">
+        我的研究位于人机交互与认知神经科学的交界处，关注如何利用神经生理信号（EEG、SCR）理解并增强人类的情感加工、记忆消退与学习过程。研究方法涵盖实验设计、信号处理、脑网络分析与交互原型开发。
+      </p>
+      <div class="interest-tags">
+        <span class="interest-tag">Human-Computer Interaction</span>
+        <span class="interest-tag pink">EEG Signal Processing</span>
+        <span class="interest-tag">Fear Extinction</span>
+        <span class="interest-tag pink">Neural Oscillations</span>
+        <span class="interest-tag">Binaural Beats</span>
+        <span class="interest-tag pink">Brain Connectivity</span>
+        <span class="interest-tag">SCR Analysis</span>
+        <span class="interest-tag pink">Cognitive Neuroscience</span>
+      </div>
+    </div>
+    <div class="about-card reveal reveal-delay-3">
+      <h3>技能与方法</h3>
+      <p class="about-text">
+        具备跨学科研究能力，能够在实验设计、数据采集、信号分析与系统开发之间无缝衔接。熟悉脑电设备操作、皮肤电反应分析，以及基于 Python/Matlab 的神经数据处理管线。
+      </p>
+      <div class="about-pills">
+        <span class="about-pill">EEG (NeuSen.W64)</span>
+        <span class="about-pill">SCR Analysis</span>
+        <span class="about-pill">PLV / Phase Synchrony</span>
+        <span class="about-pill">Brain Network Analysis</span>
+        <span class="about-pill">Python / Matlab</span>
+        <span class="about-pill">Statistical Analysis</span>
+        <span class="about-pill">Experimental Design</span>
+        <span class="about-pill">Signal Processing</span>
+        <span class="about-pill">Interactive Prototyping</span>
+        <span class="about-pill">UI/UX Design</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== RESEARCH ===== -->
+<section class="section" id="research">
+  <div class="section-inner">
+    <p class="section-label reveal">Research</p>
+    <h2 class="section-title reveal reveal-delay-1">
+      脑电与恐惧<span class="gradient-text">消退研究</span>
+    </h2>
+    <p class="section-desc reveal reveal-delay-1">
+      以双耳节拍作为非侵入式神经调控干预手段，探索其对恐惧消退巩固的增强效应及其背后的神经振荡与脑网络机制。
+    </p>
+
+    <!-- Timeline -->
+    <div class="timeline-wrapper reveal reveal-delay-2">
+      <div class="timeline">
+        <div class="timeline-node">
+          <div class="timeline-node-date">Phase 1</div>
+          <h4>恐惧记忆习得<br>Fear Acquisition</h4>
+          <p>CS+ 与 US（电击）配对呈现，建立条件性恐惧反应。通过 SCR 实时记录恐惧反应的生理指标变化。</p>
+        </div>
+        <div class="timeline-node">
+          <div class="timeline-node-date">Phase 2</div>
+          <h4>恐惧消退学习<br>Fear Extinction</h4>
+          <p>引入 10 Hz 双耳节拍干预，反复呈现 CS 不伴随 US，促使安全记忆形成。64通道 EEG 同步采集。</p>
+        </div>
+        <div class="timeline-node">
+          <div class="timeline-node-date">Phase 3</div>
+          <h4>恐惧复发测试<br>Fear Recall</h4>
+          <p>24小时后测试消退保持效果。BB组展现出更稳定的消退保持，脑网络连接模式显著变化。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Paper Card -->
+    <div class="research-paper reveal reveal-delay-3">
+      <div class="research-paper-corner"></div>
+      <h3 class="research-paper-title">
+        双耳节拍听觉刺激增强恐惧消退效果 —— EEG 显示其可能建立新的脑网络连接
+      </h3>
+      <div class="research-meta">
+        <div class="research-meta-item"><span class="research-meta-dot"></span> 高密度 EEG (64-ch)</div>
+        <div class="research-meta-item"><span class="research-meta-dot"></span> 皮肤电反应 (SCR)</div>
+        <div class="research-meta-item"><span class="research-meta-dot"></span> N = 24</div>
+        <div class="research-meta-item"><span class="research-meta-dot"></span> 2-Day Protocol</div>
+      </div>
+      <p class="research-abstract">
+        恐惧消退功能障碍是创伤后应激障碍（PTSD）的核心病理机制之一。本研究采用经典的恐惧习得—消退—复发测试范式，结合 SCR 与高密度 EEG，考察 10 Hz 双耳节拍对恐惧消退及其保持效果的影响。24 名健康被试随机分为双耳节拍组与对照组。结果显示，BB 组在消退学习中 SCR 整体水平降低，恐惧反应减弱；广泛脑区出现低频（δ, θ）升高和高频（β, γ）降低；theta 频段多脑区长程相位同步显著增强，额叶、前额叶和颞叶在高频段呈现较高相位同步性；脑网络度分布整体向高值偏移，颞叶聚类系数与 SCR 呈显著负相关。研究表明，双耳节拍可通过调节多频段神经振荡与脑网络组织增强恐惧消退的稳定性。
+      </p>
+      <div class="research-keywords-display">
+        <span class="research-kw">Fear Extinction</span>
+        <span class="research-kw purple">Electroencephalography</span>
+        <span class="research-kw">Skin Conductance Response</span>
+        <span class="research-kw purple">Binaural Beats</span>
+        <span class="research-kw">Neural Oscillations</span>
+        <span class="research-kw purple">Functional Brain Connectivity</span>
+      </div>
+
+      <div class="research-visuals">
+        <div class="research-vcard">
+          <div class="research-vcard-icon">🧠</div>
+          <h4>EEG 脑地形图分析</h4>
+          <p>多频段（δ, θ, α, β, γ）功率谱密度分析，揭示 BB 干预下恐惧消退阶段脑区活动变化</p>
+        </div>
+        <div class="research-vcard">
+          <div class="research-vcard-icon">🔗</div>
+          <h4>脑网络连接分析</h4>
+          <p>PLV 相位同步与图论指标：度分布、聚类系数、节点强度揭示 BB 对脑网络组织的调控效应</p>
+        </div>
+        <div class="research-vcard">
+          <div class="research-vcard-icon">📊</div>
+          <h4>SCR-脑网络关联</h4>
+          <p>颞叶聚类系数与 SCR 显著负相关，揭示脑网络重构与恐惧反应降低的行为-生理关联</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROJECTS ===== -->
+<section class="section" id="projects">
+  <p class="section-label reveal">Projects</p>
+  <h2 class="section-title reveal reveal-delay-1">
+    项目与<span class="gradient-text">原型</span>
+  </h2>
+  <p class="section-desc reveal reveal-delay-1">
+    跨学科设计研究项目，聚焦产品设计、交互体验与可持续创新的交叉领域。
+  </p>
+
+  <div class="projects-grid">
+    <a href="project-detail.html" class="project-card project-card-link reveal reveal-delay-2">
+      <span class="project-status">Project Work 01</span>
+      <h3>NourishRing</h3>
+      <p>通过定制化早餐与营养可视化设计，让快节奏人群能够"像搭积木一样"快速完成个性化、均衡且可持续的早餐摄入体验。</p>
+      <span class="project-domain">Food Design</span>
+    </a>
+    <div class="project-card reveal reveal-delay-3">
+      <span class="project-status">In Progress</span>
+      <h3>脑电交互原型系统</h3>
+      <p>基于 EEG 信号实时处理的交互式反馈系统原型，探索脑机接口在 HCI 中的应用场景。</p>
+      <span class="project-domain">BCI · HCI</span>
+    </div>
+    <div class="project-card reveal reveal-delay-3">
+      <span class="project-status">Planned</span>
+      <h3>情感计算与交互设计</h3>
+      <p>将情感神经科学指标（SCR、EEG 情感分类）应用于交互设计评估，建立基于生理信号的设计迭代方法论。</p>
+      <span class="project-domain">Affective Computing</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== AWARDS ===== -->
+<section class="section" id="awards">
+  <p class="section-label reveal">Awards</p>
+  <h2 class="section-title reveal reveal-delay-1">
+    荣誉与<span class="gradient-text">获奖</span>
+  </h2>
+  <p class="section-desc reveal reveal-delay-1">
+    学科竞赛与荣誉奖项，涵盖国际设计大奖、国家级创新竞赛、省级学科赛事及校内表彰。
+  </p>
+
+  <!-- 学科竞赛 -->
+  <div class="awards-category reveal reveal-delay-1">
+    <h3 class="awards-category-title">学科竞赛</h3>
+    <div class="awards-list">
+      <div class="award-item reveal reveal-delay-1">
+        <div class="award-year">2026.02</div>
+        <div class="award-info">
+          <h4>iF DESIGN AWARD 2026 WINNER</h4>
+          <p>iF International Forum Design · 国际顶级设计赛事</p>
+        </div>
+        <span class="award-level international">国际级</span>
+      </div>
+      <div class="award-item reveal reveal-delay-1">
+        <div class="award-year">2025.11</div>
+        <div class="award-info">
+          <h4>第十届"两岸新锐设计竞赛·华灿奖" 三等奖</h4>
+          <p>中国高等教育学会 · 两岸设计竞赛</p>
+        </div>
+        <span class="award-level national">国家级</span>
+      </div>
+      <div class="award-item reveal reveal-delay-1">
+        <div class="award-year">2025.10</div>
+        <div class="award-info">
+          <h4>第十三届全国大学生数字媒体科技作品及创意竞赛 三等奖</h4>
+          <p>中国人工智能学会 · 国家级学科竞赛</p>
+        </div>
+        <span class="award-level national">国家级</span>
+      </div>
+      <div class="award-item reveal reveal-delay-1">
+        <div class="award-year">2025.10</div>
+        <div class="award-info">
+          <h4>中国国际大学生创新大赛国际赛道 铜奖</h4>
+          <p>教育部 · 国际赛道</p>
+        </div>
+        <span class="award-level international">国际级</span>
+      </div>
+      <div class="award-item reveal reveal-delay-1">
+        <div class="award-year">2025.08</div>
+        <div class="award-info">
+          <h4>中国国际大学生创新大赛高教主赛道陕西赛区 金奖</h4>
+          <p>陕西省教育厅 · 省级选拔赛</p>
+        </div>
+        <span class="award-level provincial">省级</span>
+      </div>
+      <div class="award-item reveal reveal-delay-2">
+        <div class="award-year">2025.07</div>
+        <div class="award-info">
+          <h4>2024年国家级大学生创新训练项目 良好</h4>
+          <p>教育部 · 国家级大创项目结题</p>
+        </div>
+        <span class="award-level national">国家级</span>
+      </div>
+      <div class="award-item reveal reveal-delay-2">
+        <div class="award-year">2025.07</div>
+        <div class="award-info">
+          <h4>中国国际大学生创新大赛校内赛高教主赛道 银奖</h4>
+          <p>西安交通大学 · 校级选拔赛</p>
+        </div>
+        <span class="award-level university">校级</span>
+      </div>
+      <div class="award-item reveal reveal-delay-2">
+        <div class="award-year">2025.06</div>
+        <div class="award-info">
+          <h4>第十六届蓝桥杯全国软件和信息技术专业人才大赛视觉艺术设计赛 省赛优秀奖</h4>
+          <p>工业和信息化部人才交流中心 · 省级选拔赛</p>
+        </div>
+        <span class="award-level provincial">省级</span>
+      </div>
+      <div class="award-item reveal reveal-delay-2">
+        <div class="award-year">2025.06</div>
+        <div class="award-info">
+          <h4>全国三维数字化创新设计大赛17周年精英联赛（陕西赛区）二等奖</h4>
+          <p>全国三维数字化创新设计大赛组委会 · 省级选拔赛</p>
+        </div>
+        <span class="award-level provincial">省级</span>
+      </div>
+      <div class="award-item reveal reveal-delay-3">
+        <div class="award-year">2025.04</div>
+        <div class="award-info">
+          <h4>两岸数字艺术设计·年度奖 佳作奖</h4>
+          <p>两岸数字艺术设计年度奖组委会 · 两岸设计赛事</p>
+        </div>
+        <span class="award-level national">国家级</span>
+      </div>
+      <div class="award-item reveal reveal-delay-3">
+        <div class="award-year">2024.12</div>
+        <div class="award-info">
+          <h4>第九届社会实践青年研究年会 三等奖</h4>
+          <p>西安交通大学 · 校级学术年会</p>
+        </div>
+        <span class="award-level university">校级</span>
+      </div>
+      <div class="award-item reveal reveal-delay-3">
+        <div class="award-year">2024.06</div>
+        <div class="award-info">
+          <h4>全国三维数字化创新设计大赛16周年精英联赛（陕西赛区）二等奖</h4>
+          <p>全国三维数字化创新设计大赛组委会 · 省级选拔赛</p>
+        </div>
+        <span class="award-level provincial">省级</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 荣誉奖项 -->
+  <div class="awards-category reveal reveal-delay-2">
+    <h3 class="awards-category-title">荣誉奖项</h3>
+    <div class="awards-list">
+      <div class="award-item reveal reveal-delay-2">
+        <div class="award-year">2025.10</div>
+        <div class="award-info">
+          <h4>西安交通大学优秀朋辈辅导员</h4>
+          <p>西安交通大学 · 学生工作表彰</p>
+        </div>
+        <span class="award-level university">校级</span>
+      </div>
+      <div class="award-item reveal reveal-delay-2">
+        <div class="award-year">2025.09</div>
+        <div class="award-info">
+          <h4>西安交通大学优秀学生</h4>
+          <p>西安交通大学 · 学生荣誉表彰</p>
+        </div>
+        <span class="award-level university">校级</span>
+      </div>
+      <div class="award-item reveal reveal-delay-2">
+        <div class="award-year">2025.05</div>
+        <div class="award-info">
+          <h4>西安交通大学新时代青年先锋</h4>
+          <p>共青团西安交通大学委员会 · 青年表彰</p>
+        </div>
+        <span class="award-level university">校级</span>
+      </div>
+      <div class="award-item reveal reveal-delay-3">
+        <div class="award-year">2024.09</div>
+        <div class="award-info">
+          <h4>西安交通大学优秀学生干部</h4>
+          <p>西安交通大学 · 学生干部表彰</p>
+        </div>
+        <span class="award-level university">校级</span>
+      </div>
+      <div class="award-item reveal reveal-delay-3">
+        <div class="award-year">2024.06</div>
+        <div class="award-info">
+          <h4>联合设计与创新学院优秀共青团员</h4>
+          <p>共青团联合设计与创新学院委员会 · 团员表彰</p>
+        </div>
+        <span class="award-level college">院级</span>
+      </div>
+      <div class="award-item reveal reveal-delay-3">
+        <div class="award-year">2023.09</div>
+        <div class="award-info">
+          <h4>大学生军事训练优秀学员</h4>
+          <p>西安交通大学 · 军事训练表彰</p>
+        </div>
+        <span class="award-level university">校级</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section class="section" id="contact">
+  <div class="section-inner">
+    <p class="section-label reveal">Contact</p>
+    <h2 class="section-title reveal reveal-delay-1">
+      联系<span class="gradient-text">方式</span>
+    </h2>
+    <p class="section-desc reveal reveal-delay-1">
+      欢迎对 HCI、神经设计、脑电研究或跨学科合作感兴趣的学者与同学联系交流。
+    </p>
+
+    <div class="contact-grid">
+      <div class="contact-info reveal reveal-delay-2">
+        <div class="contact-card">
+          <div class="contact-icon-box purple">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent-purple)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          </div>
+          <div>
+            <div class="contact-card-label">邮箱</div>
+            <div class="contact-card-value">luojinglei@stu.xjtu.edu.cn</div>
+          </div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon-box pink">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent-pink)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div>
+            <div class="contact-card-label">电话</div>
+            <div class="contact-card-value">18121863516</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="wechat-card reveal reveal-delay-3">
+        <div class="wechat-card-glow"></div>
+        <h3 class="wechat-card-title">欢迎微信联系</h3>
+        <p class="wechat-card-desc">扫描或搜索添加微信，交流科研与合作</p>
+        <div class="wechat-qr-wrapper">
+          <img src="微信.jpg" alt="微信二维码" class="wechat-qr-img">
+          <div class="wechat-qr-ring"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <p>&copy; 2025 <span class="footer-gradient">Luo Jinglei</span> · Xi'an Jiaotong University · Industrial Design</p>
+  <p>HCI · Neurodesign · EEG Research</p>
+</footer>
+
+<script>
+// ===== Particle Canvas =====
+(function() {
+  const canvas = document.getElementById('particle-canvas');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+  let mouseX = -500, mouseY = -500;
+  let w, h;
+
+  function resize() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', () => { resize(); initParticles(); });
+
+  class Particle {
+    constructor() {
+      this.reset();
+    }
+    reset() {
+      this.x = Math.random() * w;
+      this.y = Math.random() * h;
+      this.vx = (Math.random() - 0.5) * 0.25;
+      this.vy = (Math.random() - 0.5) * 0.25;
+      this.size = Math.random() * 1.5 + 0.3;
+      this.opacity = Math.random() * 0.35 + 0.08;
+      this.pulse = Math.random() * Math.PI * 2;
+    }
+    update(t) {
+      this.x += this.vx;
+      this.y += this.vy;
+      if (this.x < -20) this.x = w + 20;
+      if (this.x > w + 20) this.x = -20;
+      if (this.y < -20) this.y = h + 20;
+      if (this.y > h + 20) this.y = -20;
+      const dx = this.x - mouseX;
+      const dy = this.y - mouseY;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 130) {
+        const force = (130 - dist) / 130 * 0.4;
+        this.vx += (dx / dist) * force * 0.015;
+        this.vy += (dy / dist) * force * 0.015;
+        this.vx *= 0.985;
+        this.vy *= 0.985;
+      }
+      const speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+      if (speed > 0.6) {
+        this.vx = (this.vx / speed) * 0.6;
+        this.vy = (this.vy / speed) * 0.6;
+      }
+    }
+    draw(ctx, t) {
+      const pulse = Math.sin(t * 0.0015 + this.pulse) * 0.25 + 0.75;
+      const alpha = this.opacity * pulse;
+      ctx.fillStyle = `rgba(138,118,225,${alpha})`;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  function initParticles() {
+    const count = Math.floor((w * h) / 18000);
+    particles = Array.from({ length: Math.min(count, 180) }, () => new Particle());
+  }
+  initParticles();
+
+  window.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
+
+  function drawConnections(t) {
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 110) {
+          const alpha = (1 - dist / 110) * 0.06;
+          ctx.strokeStyle = `rgba(138,118,225,${alpha})`;
+          ctx.lineWidth = 0.4;
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+  }
+
+  function animate(t) {
+    ctx.clearRect(0, 0, w, h);
+    particles.forEach(p => { p.update(t); p.draw(ctx, t); });
+    drawConnections(t);
+    requestAnimationFrame(animate);
+  }
+  requestAnimationFrame(animate);
+})();
+
+// ===== Navbar =====
+const navbar = document.getElementById('navbar');
+const navLinks = document.querySelectorAll('.nav-link');
+
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 20);
+  const sections = document.querySelectorAll('section[id], .hero[id]');
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 120) current = s.getAttribute('id');
+  });
+  navLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+});
+
+// ===== Mobile Menu =====
+const mobileBtn = document.getElementById('mobileMenuBtn');
+const mobileNav = document.getElementById('mobileNav');
+mobileBtn.addEventListener('click', () => mobileNav.classList.toggle('open'));
+function closeMobileNav() { mobileNav.classList.remove('open'); }
+
+// ===== Scroll Reveal =====
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+</script>
+</body>
+</html>
